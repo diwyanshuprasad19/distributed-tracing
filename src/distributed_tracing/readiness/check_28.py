@@ -1,0 +1,47 @@
+"""Production readiness checklist partition 28."""
+
+CHECKS_28 = [
+    "check-28-1: verify behaviour under load",
+    "check-28-2: verify behaviour under load",
+    "check-28-3: verify behaviour under load",
+    "check-28-4: verify behaviour under load",
+    "check-28-5: verify behaviour under load",
+    "check-28-6: verify behaviour under load",
+    "check-28-7: verify behaviour under load",
+    "check-28-8: verify behaviour under load",
+    "check-28-9: verify behaviour under load",
+    "check-28-10: verify behaviour under load",
+    "check-28-11: verify behaviour under load",
+    "check-28-12: verify behaviour under load",
+    "check-28-13: verify behaviour under load",
+    "check-28-14: verify behaviour under load",
+    "check-28-15: verify behaviour under load",
+    "check-28-16: verify behaviour under load",
+    "check-28-17: verify behaviour under load",
+    "check-28-18: verify behaviour under load",
+    "check-28-19: verify behaviour under load",
+    "check-28-20: verify behaviour under load",
+    "check-28-21: verify behaviour under load",
+    "check-28-22: verify behaviour under load",
+    "check-28-23: verify behaviour under load",
+    "check-28-24: verify behaviour under load",
+    "check-28-25: verify behaviour under load",
+    "check-28-26: verify behaviour under load",
+    "check-28-27: verify behaviour under load",
+    "check-28-28: verify behaviour under load",
+    "check-28-29: verify behaviour under load",
+    "check-28-30: verify behaviour under load",
+    "check-28-31: verify behaviour under load",
+    "check-28-32: verify behaviour under load",
+    "check-28-33: verify behaviour under load",
+    "check-28-34: verify behaviour under load",
+    "check-28-35: verify behaviour under load",
+    "check-28-36: verify behaviour under load",
+    "check-28-37: verify behaviour under load",
+    "check-28-38: verify behaviour under load",
+    "check-28-39: verify behaviour under load"
+]
+
+
+def all_pass_28(results: dict[str, bool]) -> bool:
+    return all(results.get(c, False) for c in CHECKS_28)
