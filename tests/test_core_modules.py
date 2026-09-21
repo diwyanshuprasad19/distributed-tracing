@@ -70,13 +70,36 @@ def test_propagators_and_baggage(monkeypatch):
     context.detach(token)
 
 
-def test_instrumentors_and_logging():
+def test_instrumentors_and_logging(monkeypatch):
     instrument_httpx()
+    # Force instrumentor bodies (success path) so if/else branches are covered.
+    sa_mod = MagicMock()
+    monkeypatch.setitem(
+        __import__("sys").modules,
+        "opentelemetry.instrumentation.sqlalchemy",
+        sa_mod,
+    )
     instrument_sqlalchemy(None)
     instrument_sqlalchemy(MagicMock())
+    assert sa_mod.SQLAlchemyInstrumentor.return_value.instrument.call_count >= 2
+
+    fa_mod = MagicMock()
+    monkeypatch.setitem(
+        __import__("sys").modules,
+        "opentelemetry.instrumentation.fastapi",
+        fa_mod,
+    )
+    fl_mod = MagicMock()
+    monkeypatch.setitem(
+        __import__("sys").modules,
+        "opentelemetry.instrumentation.flask",
+        fl_mod,
+    )
     configure_logging_otel(level=logging.WARNING)
     instrument_fastapi(MagicMock(), service_name="fastapi-cov")
     instrument_flask(MagicMock(), service_name="flask-cov")
+    fa_mod.FastAPIInstrumentor.instrument_app.assert_called()
+    fl_mod.FlaskInstrumentor.return_value.instrument_app.assert_called()
 
 
 def test_errors_taxonomy():
@@ -92,6 +115,10 @@ def test_metrics_configure_idempotent(monkeypatch):
     m._configured = False
     m._meter_provider = None
     monkeypatch.setenv("OTEL_SERVICE_NAME", "metrics-cov")
+    # get_meter auto-configures when not yet configured
+    assert get_meter("pre") is not None
+    m._configured = False
+    m._meter_provider = None
     p1 = configure_metrics("metrics-cov")
     p2 = configure_metrics("metrics-cov")
     assert p1 is p2
@@ -99,6 +126,13 @@ def test_metrics_configure_idempotent(monkeypatch):
 
 
 def test_tracing_sampler_ratio_and_grpc(monkeypatch):
+    import distributed_tracing.tracing as tr
+
+    shutdown_tracing()
+    # get_tracer auto-configures when not yet configured
+    tr._configured = False
+    tr._provider = None
+    assert get_tracer("auto") is not None
     shutdown_tracing()
     monkeypatch.setenv("OTEL_TRACES_SAMPLER_ARG", "0.5")
     p = configure_tracing(
