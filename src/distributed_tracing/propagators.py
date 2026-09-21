@@ -4,10 +4,10 @@ from __future__ import annotations
 
 import os
 
+from opentelemetry.baggage.propagation import W3CBaggagePropagator
 from opentelemetry.propagate import set_global_textmap
 from opentelemetry.propagators.composite import CompositePropagator
 from opentelemetry.trace.propagation.tracecontext import TraceContextTextMapPropagator
-from opentelemetry.baggage.propagation import W3CBaggagePropagator
 
 
 def configure_propagators(*, enable_b3: bool | None = None) -> None:

@@ -7,8 +7,10 @@ import os
 
 
 def configure_logging_otel(level: int | None = None) -> None:
-    lvl = level if level is not None else getattr(
-        logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO
+    lvl = (
+        level
+        if level is not None
+        else getattr(logging, os.getenv("LOG_LEVEL", "INFO").upper(), logging.INFO)
     )
     logging.basicConfig(
         level=lvl,

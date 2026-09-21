@@ -39,7 +39,7 @@ CHECKS_29 = [
     "check-29-36: verify behaviour under load",
     "check-29-37: verify behaviour under load",
     "check-29-38: verify behaviour under load",
-    "check-29-39: verify behaviour under load"
+    "check-29-39: verify behaviour under load",
 ]
 
 

@@ -1,9 +1,9 @@
+from distributed_tracing.catalogs.attrs_01 import keys_01
+from distributed_tracing.config import TracingConfig
+from distributed_tracing.health_telemetry import telemetry_status
 from distributed_tracing.policies.policy_01 import DEFAULT_POLICY_01
 from distributed_tracing.policies.policy_10 import DEFAULT_POLICY_10
 from distributed_tracing.retry_policy import RetryPolicy
-from distributed_tracing.config import TracingConfig
-from distributed_tracing.health_telemetry import telemetry_status
-from distributed_tracing.catalogs.attrs_01 import keys_01
 
 
 def test_policies():
