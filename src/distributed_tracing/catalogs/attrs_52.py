@@ -27,7 +27,7 @@ ATTRS_52: dict[str, str] = {
     "attr_52_22": "otel.semconv.value_52_22",
     "attr_52_23": "otel.semconv.value_52_23",
     "attr_52_24": "otel.semconv.value_52_24",
-    "attr_52_25": "otel.semconv.value_52_25"
+    "attr_52_25": "otel.semconv.value_52_25",
 }
 
 

@@ -22,7 +22,7 @@ ATTRS_16: dict[str, str] = {
     "attr_16_17": "value_16_17_semantic_convention",
     "attr_16_18": "value_16_18_semantic_convention",
     "attr_16_19": "value_16_19_semantic_convention",
-    "attr_16_20": "value_16_20_semantic_convention"
+    "attr_16_20": "value_16_20_semantic_convention",
 }
 
 

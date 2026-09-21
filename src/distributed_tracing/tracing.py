@@ -49,14 +49,15 @@ def configure_tracing(
         return _provider
 
     name = service_name or os.getenv("OTEL_SERVICE_NAME", "app")
-    ep = endpoint if endpoint is not None else os.getenv(
-        "OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318"
+    ep = (
+        endpoint
+        if endpoint is not None
+        else os.getenv("OTEL_EXPORTER_OTLP_ENDPOINT", "http://localhost:4318")
     )
     use_console = (
         console
         if console is not None
-        else os.getenv("OTEL_CONSOLE_EXPORTER", "false").lower()
-        in {"1", "true", "yes"}
+        else os.getenv("OTEL_CONSOLE_EXPORTER", "false").lower() in {"1", "true", "yes"}
     )
     proto = (protocol or os.getenv("OTEL_EXPORTER_OTLP_PROTOCOL", "http/protobuf")).lower()
 
@@ -91,12 +92,8 @@ def configure_tracing(
             BatchSpanProcessor(
                 exporter,
                 max_queue_size=int(os.getenv("OTEL_BSP_MAX_QUEUE_SIZE", "2048")),
-                schedule_delay_millis=int(
-                    os.getenv("OTEL_BSP_SCHEDULE_DELAY", "2000")
-                ),
-                max_export_batch_size=int(
-                    os.getenv("OTEL_BSP_MAX_EXPORT_BATCH_SIZE", "512")
-                ),
+                schedule_delay_millis=int(os.getenv("OTEL_BSP_SCHEDULE_DELAY", "2000")),
+                max_export_batch_size=int(os.getenv("OTEL_BSP_MAX_EXPORT_BATCH_SIZE", "512")),
             )
         )
     if use_console or not ep:
