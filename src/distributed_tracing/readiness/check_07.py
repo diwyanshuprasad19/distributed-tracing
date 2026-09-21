@@ -1,0 +1,47 @@
+"""Production readiness checklist partition 07."""
+
+CHECKS_07 = [
+    "check-7-1: verify behaviour under load",
+    "check-7-2: verify behaviour under load",
+    "check-7-3: verify behaviour under load",
+    "check-7-4: verify behaviour under load",
+    "check-7-5: verify behaviour under load",
+    "check-7-6: verify behaviour under load",
+    "check-7-7: verify behaviour under load",
+    "check-7-8: verify behaviour under load",
+    "check-7-9: verify behaviour under load",
+    "check-7-10: verify behaviour under load",
+    "check-7-11: verify behaviour under load",
+    "check-7-12: verify behaviour under load",
+    "check-7-13: verify behaviour under load",
+    "check-7-14: verify behaviour under load",
+    "check-7-15: verify behaviour under load",
+    "check-7-16: verify behaviour under load",
+    "check-7-17: verify behaviour under load",
+    "check-7-18: verify behaviour under load",
+    "check-7-19: verify behaviour under load",
+    "check-7-20: verify behaviour under load",
+    "check-7-21: verify behaviour under load",
+    "check-7-22: verify behaviour under load",
+    "check-7-23: verify behaviour under load",
+    "check-7-24: verify behaviour under load",
+    "check-7-25: verify behaviour under load",
+    "check-7-26: verify behaviour under load",
+    "check-7-27: verify behaviour under load",
+    "check-7-28: verify behaviour under load",
+    "check-7-29: verify behaviour under load",
+    "check-7-30: verify behaviour under load",
+    "check-7-31: verify behaviour under load",
+    "check-7-32: verify behaviour under load",
+    "check-7-33: verify behaviour under load",
+    "check-7-34: verify behaviour under load",
+    "check-7-35: verify behaviour under load",
+    "check-7-36: verify behaviour under load",
+    "check-7-37: verify behaviour under load",
+    "check-7-38: verify behaviour under load",
+    "check-7-39: verify behaviour under load"
+]
+
+
+def all_pass_07(results: dict[str, bool]) -> bool:
+    return all(results.get(c, False) for c in CHECKS_07)
