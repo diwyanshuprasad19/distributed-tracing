@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import logging
 import os
 from typing import Any
 
 from distributed_tracing.tracing import configure_tracing
+
+logger = logging.getLogger(__name__)
 
 
 def instrument_flask(app: Any, *, service_name: str | None = None) -> Any:
@@ -14,6 +17,6 @@ def instrument_flask(app: Any, *, service_name: str | None = None) -> Any:
         from opentelemetry.instrumentation.flask import FlaskInstrumentor
 
         FlaskInstrumentor().instrument_app(app)
-    except Exception:  # pragma: no cover
-        pass
+    except Exception as exc:  # pragma: no cover
+        logger.warning("flask otel instrument failed: %s", exc)
     return app
