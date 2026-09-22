@@ -74,6 +74,7 @@ def configure_tracing(
 
     if ep:
         traces_url = f"{ep.rstrip('/')}/v1/traces"
+        export_timeout = int(os.getenv("OTEL_EXPORTER_OTLP_TIMEOUT", "10"))
         if proto.startswith("grpc"):
             try:
                 from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import (
@@ -83,17 +84,20 @@ def configure_tracing(
                 exporter: Any = GrpcExporter(
                     endpoint=ep.replace("http://", "").replace("https://", ""),
                     insecure=ep.startswith("http://"),
+                    timeout=export_timeout,
                 )
-            except Exception:  # pragma: no cover
-                exporter = OTLPSpanExporter(endpoint=traces_url)
+            except Exception as exc:  # pragma: no cover
+                logger.warning("grpc otlp exporter unavailable (%s); falling back to http", exc)
+                exporter = OTLPSpanExporter(endpoint=traces_url, timeout=export_timeout)
         else:
-            exporter = OTLPSpanExporter(endpoint=traces_url)
+            exporter = OTLPSpanExporter(endpoint=traces_url, timeout=export_timeout)
         provider.add_span_processor(
             BatchSpanProcessor(
                 exporter,
                 max_queue_size=int(os.getenv("OTEL_BSP_MAX_QUEUE_SIZE", "2048")),
                 schedule_delay_millis=int(os.getenv("OTEL_BSP_SCHEDULE_DELAY", "2000")),
                 max_export_batch_size=int(os.getenv("OTEL_BSP_MAX_EXPORT_BATCH_SIZE", "512")),
+                export_timeout_millis=export_timeout * 1000,
             )
         )
     if use_console or not ep:

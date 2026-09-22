@@ -20,5 +20,5 @@ def configure_logging_otel(level: int | None = None) -> None:
         from opentelemetry.instrumentation.logging import LoggingInstrumentor
 
         LoggingInstrumentor().instrument(set_logging_format=True)
-    except Exception:  # pragma: no cover
-        pass
+    except Exception as exc:  # pragma: no cover
+        logging.getLogger(__name__).warning("logging otel instrument failed: %s", exc)

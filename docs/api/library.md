@@ -1,0 +1,22 @@
+# Library surface
+
+- `CircuitBreaker`
+- `CircuitOpenError`
+- `CircuitState`
+- `BreakerStats`
+- `configure_tracing`
+- `get_tracer`
+- `inject_context`
+- `extract_context`
+- `start_span`
+- `record_exception`
+- `shutdown_tracing`
+- `force_flush`
+- `instrument_fastapi`
+- `instrument_flask`
+- `configure_metrics`
+- `get_meter`
+- `configure_logging_otel`
+- `set_baggage`
+- `get_baggage`
+- `telemetry_status`
